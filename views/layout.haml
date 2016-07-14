@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Sinatra App
+    %link{rel:"stylesheet", href:stylesheet_path('application')}
+    %script{src: javascript_path('application')}
+  %body
+  .container
+    #flash_message
+    .row
+      =yield

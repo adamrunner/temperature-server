@@ -1,9 +1,16 @@
 Bundler.require
+require 'elasticsearch'
 require 'yaml'
 require 'sinatra'
+require 'sinatra/reloader'
 require 'sinatra/asset_pipeline'
 
+
 class App < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
+
   # Include these files when precompiling assets
   set :assets_precompile, %w(app.js app.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
 
@@ -24,7 +31,7 @@ class App < Sinatra::Base
 
   # JavaScript minification
   set :assets_js_compressor, :uglifier
-  set :assets_prefix, '/assets'
+  set :assets_prefix, ['/assets']
   set :haml, format: :html5
   set :assets_debug, true
   set :digest_assets, false
@@ -55,6 +62,25 @@ class App < Sinatra::Base
     else
       haml :index
     end
+  end
+
+  get '/temp' do
+    @client = Elasticsearch::Client.new log: true, host: 'https://es.adamrunner.com'
+    # http://192.168.1.90/temp?sensor_id=1&temp=75.58
+    # Date should be in "2015-01-01T12:10:30-0800" format
+    sensor_id = params['sensor_id']
+    temp      = params['temp']
+    @client.index({
+      index: 'temperature_data',
+      type: 'temperature',
+      body: {
+        sensor_id: sensor_id.to_i,
+        temperature: temp.to_f,
+        timestamp: Time.now.strftime("%Y-%m-%dT%H:%M:%S%z")
+      }
+    })
+
+    [200, {}, '']
   end
 
   post '/add' do

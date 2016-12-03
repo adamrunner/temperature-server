@@ -2,8 +2,8 @@
 %html
   %head
     %title Sinatra App
-    %link{rel:"stylesheet", href:stylesheet_path('application')}
-    %script{src: javascript_path('application')}
+    = stylesheet_tag('application', {expand: true})
+    = javascript_tag('application', { expand: true})
   %body
   .container
     #flash_message

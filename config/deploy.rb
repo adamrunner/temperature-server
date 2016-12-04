@@ -33,6 +33,7 @@ set :repo_url, 'git@github.com:adamrunner/temperature_server.git'
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+set :rbenv_version, '2.2.3'
 
 namespace :deploy do
 
@@ -40,7 +41,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 

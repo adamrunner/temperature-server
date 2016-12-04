@@ -70,22 +70,19 @@ class App < Sinatra::Base
     # Date should be in "2015-01-01T12:10:30-0800" format
     sensor_id = params['sensor_id']
     temp      = params['temp']
-    @client.index({
-      index: 'temperature_data',
-      type: 'temperature',
-      body: {
-        sensor_id: sensor_id.to_i,
-        temperature: temp.to_f,
-        timestamp: Time.now.strftime("%Y-%m-%dT%H:%M:%S%z")
-      }
-    })
-
-    [200, {}, '']
-  end
-
-  post '/add' do
-  end
-
-  post '/delete' do
+    if sensor_id.nil? or temp.nil?
+      return [404, {}, 'No data specified']
+    else
+      @client.index({
+        index: 'temperature_data',
+        type: 'temperature',
+        body: {
+          sensor_id: sensor_id.to_i,
+          temperature: temp.to_f,
+          timestamp: Time.now.strftime("%Y-%m-%dT%H:%M:%S%z")
+        }
+      })
+      return [200, {}, '']
+    end
   end
 end

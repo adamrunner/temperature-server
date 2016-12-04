@@ -8,6 +8,18 @@ GEM
     bootstrap (4.0.0.alpha5)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    capistrano (3.1.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
+    capistrano-rbenv (2.0.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     coderay (1.1.1)
     coffee-script (2.4.1)
       coffee-script-source
@@ -36,10 +48,17 @@ GEM
       sprockets (>= 2)
       tilt (>= 1)
     hike (1.2.3)
+    i18n (0.7.0)
     libv8 (3.16.14.15)
     method_source (0.8.2)
     multi_json (1.12.1)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.0.1)
+    passenger (5.0.30)
+      rack
+      rake (>= 0.8.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -90,6 +109,9 @@ GEM
     sprockets-sass (1.3.1)
       sprockets (~> 2.0)
       tilt (~> 1.1)
+    sshkit (1.8.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -104,9 +126,14 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (~> 4.0.0.alpha5)
+  capistrano
+  capistrano-bundler
+  capistrano-passenger
+  capistrano-rbenv (~> 2.0)
   elasticsearch (= 2.0.0)
   haml
   haml_coffee_assets
+  passenger (>= 5.0.25)
   pry
   rake
   sinatra
@@ -116,7 +143,6 @@ DEPENDENCIES
   sinatra-partial
   sinatra-websocket (= 0.3.1)
   therubyracer
-  thin
 
 BUNDLED WITH
    1.12.5

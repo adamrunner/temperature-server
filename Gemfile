@@ -10,10 +10,17 @@ gem 'pry'
 gem 'sinatra-websocket', '0.3.1'
 gem 'sinatra-contrib'
 gem 'bootstrap', '~> 4.0.0.alpha5'
-gem 'thin'
 gem 'therubyracer'
 gem 'haml_coffee_assets'
 gem 'elasticsearch', '2.0.0'
+gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
+
+#### Deployment
+gem 'capistrano'
+gem 'capistrano-passenger'
+gem 'capistrano-rbenv', '~> 2.0'
+gem 'capistrano-bundler'
+
 #gem 'sqlite3'
 #gem 'activerecord', '3.2.17'
 #gem 'sinatra-activerecord'
@@ -21,13 +28,9 @@ gem 'elasticsearch', '2.0.0'
 
 #gem 'font-awesome-sass'
 #gem 'dotenv'
-#gem 'capistrano'
-#gem 'capistrano-passenger'
-#gem 'capistrano-rbenv', '~> 2.0'
-#gem 'capistrano-bundler'
 
 #gem 'sys-filesystem'
 #gem 'rspec'
-#gem 'rack-test', :require => "rack/test"
+#gem 'rack-test', :require => 'rack/test'
 #gem 'simplecov', :require => false
 #gem 'capistrano-rails'
